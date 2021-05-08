@@ -53,6 +53,12 @@
     <Compile Include="CheckingAccounts.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Customers.cs" />
+    <Compile Include="addClinet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="addClinet.Designer.cs">
+      <DependentUpon>addClinet.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Supervisor.Designer.cs">
       <DependentUpon>Supervisor.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="addClinet.resx">
+      <DependentUpon>addClinet.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>

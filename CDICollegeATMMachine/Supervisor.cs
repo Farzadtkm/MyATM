@@ -14,6 +14,11 @@ namespace CDICollegeATMMachine {
         ATMManager atmManager;
         LoginForm loginForm;
 
+        public Supervisor()
+        {
+
+        }
+
         public Supervisor(ATMManager atmManager, LoginForm loginForm) {
             InitializeComponent();
 
@@ -105,6 +110,13 @@ namespace CDICollegeATMMachine {
                 each.payIntrest();
 
             MessageBox.Show("The interest of %1 has been applied to all savings accounts!");
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            var supervisor = new Form1();
+            supervisor.Show();
         }
     }
 }
