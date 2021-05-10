@@ -12,6 +12,8 @@ namespace CDICollegeATMMachine {
         private double accountBalance;
         private int maximumWithDrawal = 10000;
         private int maximumTransferAmount;
+        private String email;
+        private String phoneNumber;
 
         public double withdarw(double amount) {
             return 0;
@@ -50,5 +52,6 @@ namespace CDICollegeATMMachine {
         public double getAccountBalance() {
             return this.accountBalance;
         }
+
     }
 }

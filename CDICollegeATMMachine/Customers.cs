@@ -16,5 +16,10 @@ namespace CDICollegeATMMachine {
             return allCustomers.ElementAt(index);
         }
 
+        public List<Customer> getAllCustomers()
+        {
+            return allCustomers;
+        }
+
     }
 }

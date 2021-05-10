@@ -48,6 +48,7 @@
             this.WithdrawalRadio = new System.Windows.Forms.RadioButton();
             this.DepositRadio = new System.Windows.Forms.RadioButton();
             this.SelectAccount = new System.Windows.Forms.GroupBox();
+            this.MortgageRadio = new System.Windows.Forms.RadioButton();
             this.SavingRadio = new System.Windows.Forms.RadioButton();
             this.CheckingRadio = new System.Windows.Forms.RadioButton();
             this.SubmitButton = new System.Windows.Forms.Button();
@@ -59,16 +60,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.FullName = new System.Windows.Forms.Label();
             this.transferFunds = new System.Windows.Forms.GroupBox();
-            this.transferlbl = new System.Windows.Forms.Label();
+            this.transferFundCheckingLable = new System.Windows.Forms.Label();
+            this.transferFundsLOCRadio = new System.Windows.Forms.RadioButton();
+            this.transferFundsMortgageRadio = new System.Windows.Forms.RadioButton();
+            this.transferFundsSavingsRadio = new System.Windows.Forms.RadioButton();
             this.tolbl = new System.Windows.Forms.Label();
             this.fromlbl = new System.Windows.Forms.Label();
-            this.transferFundsSavingsRadio = new System.Windows.Forms.RadioButton();
-            this.transferFundsCheckingRadio = new System.Windows.Forms.RadioButton();
             this.ExitTheATM = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.LineofCredittxt = new System.Windows.Forms.TextBox();
+            this.Mortgagetxt = new System.Windows.Forms.TextBox();
             this.KeyPadGB.SuspendLayout();
             this.SelectTransaction.SuspendLayout();
             this.SelectAccount.SuspendLayout();
@@ -312,6 +314,7 @@
             // 
             // SelectAccount
             // 
+            this.SelectAccount.Controls.Add(this.MortgageRadio);
             this.SelectAccount.Controls.Add(this.SavingRadio);
             this.SelectAccount.Controls.Add(this.CheckingRadio);
             this.SelectAccount.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -324,11 +327,24 @@
             this.SelectAccount.TabStop = false;
             this.SelectAccount.Text = "Select Account";
             // 
+            // MortgageRadio
+            // 
+            this.MortgageRadio.AutoSize = true;
+            this.MortgageRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MortgageRadio.Location = new System.Drawing.Point(9, 95);
+            this.MortgageRadio.Margin = new System.Windows.Forms.Padding(4);
+            this.MortgageRadio.Name = "MortgageRadio";
+            this.MortgageRadio.Size = new System.Drawing.Size(103, 23);
+            this.MortgageRadio.TabIndex = 13;
+            this.MortgageRadio.Text = "Mortgage";
+            this.MortgageRadio.UseVisualStyleBackColor = true;
+            this.MortgageRadio.CheckedChanged += new System.EventHandler(this.MortgageRadio_CheckedChanged);
+            // 
             // SavingRadio
             // 
             this.SavingRadio.AutoSize = true;
             this.SavingRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SavingRadio.Location = new System.Drawing.Point(9, 86);
+            this.SavingRadio.Location = new System.Drawing.Point(9, 64);
             this.SavingRadio.Margin = new System.Windows.Forms.Padding(4);
             this.SavingRadio.Name = "SavingRadio";
             this.SavingRadio.Size = new System.Drawing.Size(86, 23);
@@ -342,7 +358,7 @@
             this.CheckingRadio.AutoSize = true;
             this.CheckingRadio.Checked = true;
             this.CheckingRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CheckingRadio.Location = new System.Drawing.Point(9, 42);
+            this.CheckingRadio.Location = new System.Drawing.Point(8, 32);
             this.CheckingRadio.Margin = new System.Windows.Forms.Padding(4);
             this.CheckingRadio.Name = "CheckingRadio";
             this.CheckingRadio.Size = new System.Drawing.Size(100, 23);
@@ -443,37 +459,78 @@
             // 
             // transferFunds
             // 
-            this.transferFunds.Controls.Add(this.transferlbl);
+            this.transferFunds.Controls.Add(this.transferFundCheckingLable);
+            this.transferFunds.Controls.Add(this.transferFundsLOCRadio);
+            this.transferFunds.Controls.Add(this.transferFundsMortgageRadio);
+            this.transferFunds.Controls.Add(this.transferFundsSavingsRadio);
             this.transferFunds.Controls.Add(this.tolbl);
             this.transferFunds.Controls.Add(this.fromlbl);
-            this.transferFunds.Controls.Add(this.transferFundsSavingsRadio);
-            this.transferFunds.Controls.Add(this.transferFundsCheckingRadio);
             this.transferFunds.Enabled = false;
             this.transferFunds.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.transferFunds.Location = new System.Drawing.Point(597, 277);
             this.transferFunds.Margin = new System.Windows.Forms.Padding(4);
             this.transferFunds.Name = "transferFunds";
             this.transferFunds.Padding = new System.Windows.Forms.Padding(4);
-            this.transferFunds.Size = new System.Drawing.Size(356, 137);
+            this.transferFunds.Size = new System.Drawing.Size(415, 137);
             this.transferFunds.TabIndex = 27;
             this.transferFunds.TabStop = false;
             this.transferFunds.Text = "Transfer Funds";
             this.transferFunds.KeyDown += new System.Windows.Forms.KeyEventHandler(this.transferFunds_KeyDown);
             this.transferFunds.Enter += new System.EventHandler(this.transferFunds_Enter);
             // 
-            // transferlbl
+            // transferFundCheckingLable
             // 
-            this.transferlbl.AutoSize = true;
-            this.transferlbl.Location = new System.Drawing.Point(265, 48);
-            this.transferlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.transferlbl.Name = "transferlbl";
-            this.transferlbl.Size = new System.Drawing.Size(0, 17);
-            this.transferlbl.TabIndex = 8;
+            this.transferFundCheckingLable.AutoSize = true;
+            this.transferFundCheckingLable.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transferFundCheckingLable.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.transferFundCheckingLable.Location = new System.Drawing.Point(65, 61);
+            this.transferFundCheckingLable.Name = "transferFundCheckingLable";
+            this.transferFundCheckingLable.Size = new System.Drawing.Size(103, 25);
+            this.transferFundCheckingLable.TabIndex = 12;
+            this.transferFundCheckingLable.Text = "Checking";
+            // 
+            // transferFundsLOCRadio
+            // 
+            this.transferFundsLOCRadio.AutoSize = true;
+            this.transferFundsLOCRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transferFundsLOCRadio.Location = new System.Drawing.Point(248, 106);
+            this.transferFundsLOCRadio.Margin = new System.Windows.Forms.Padding(4);
+            this.transferFundsLOCRadio.Name = "transferFundsLOCRadio";
+            this.transferFundsLOCRadio.Size = new System.Drawing.Size(135, 23);
+            this.transferFundsLOCRadio.TabIndex = 11;
+            this.transferFundsLOCRadio.Text = "Line of Credit";
+            this.transferFundsLOCRadio.UseVisualStyleBackColor = true;
+            // 
+            // transferFundsMortgageRadio
+            // 
+            this.transferFundsMortgageRadio.AutoSize = true;
+            this.transferFundsMortgageRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transferFundsMortgageRadio.Location = new System.Drawing.Point(248, 64);
+            this.transferFundsMortgageRadio.Margin = new System.Windows.Forms.Padding(4);
+            this.transferFundsMortgageRadio.Name = "transferFundsMortgageRadio";
+            this.transferFundsMortgageRadio.Size = new System.Drawing.Size(103, 23);
+            this.transferFundsMortgageRadio.TabIndex = 10;
+            this.transferFundsMortgageRadio.Text = "Mortgage";
+            this.transferFundsMortgageRadio.UseVisualStyleBackColor = true;
+            // 
+            // transferFundsSavingsRadio
+            // 
+            this.transferFundsSavingsRadio.AutoSize = true;
+            this.transferFundsSavingsRadio.Checked = true;
+            this.transferFundsSavingsRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.transferFundsSavingsRadio.Location = new System.Drawing.Point(248, 23);
+            this.transferFundsSavingsRadio.Margin = new System.Windows.Forms.Padding(4);
+            this.transferFundsSavingsRadio.Name = "transferFundsSavingsRadio";
+            this.transferFundsSavingsRadio.Size = new System.Drawing.Size(79, 23);
+            this.transferFundsSavingsRadio.TabIndex = 9;
+            this.transferFundsSavingsRadio.TabStop = true;
+            this.transferFundsSavingsRadio.Text = "Saving";
+            this.transferFundsSavingsRadio.UseVisualStyleBackColor = true;
             // 
             // tolbl
             // 
             this.tolbl.AutoSize = true;
-            this.tolbl.Location = new System.Drawing.Point(212, 48);
+            this.tolbl.Location = new System.Drawing.Point(209, 64);
             this.tolbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tolbl.Name = "tolbl";
             this.tolbl.Size = new System.Drawing.Size(25, 17);
@@ -483,41 +540,13 @@
             // fromlbl
             // 
             this.fromlbl.AutoSize = true;
-            this.fromlbl.Location = new System.Drawing.Point(8, 42);
+            this.fromlbl.Location = new System.Drawing.Point(8, 64);
             this.fromlbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.fromlbl.Name = "fromlbl";
             this.fromlbl.Size = new System.Drawing.Size(40, 17);
             this.fromlbl.TabIndex = 6;
             this.fromlbl.Text = "From";
             this.fromlbl.Click += new System.EventHandler(this.fromlbl_Click);
-            // 
-            // transferFundsSavingsRadio
-            // 
-            this.transferFundsSavingsRadio.AutoSize = true;
-            this.transferFundsSavingsRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.transferFundsSavingsRadio.Location = new System.Drawing.Point(91, 86);
-            this.transferFundsSavingsRadio.Margin = new System.Windows.Forms.Padding(4);
-            this.transferFundsSavingsRadio.Name = "transferFundsSavingsRadio";
-            this.transferFundsSavingsRadio.Size = new System.Drawing.Size(86, 23);
-            this.transferFundsSavingsRadio.TabIndex = 5;
-            this.transferFundsSavingsRadio.Text = "Savings";
-            this.transferFundsSavingsRadio.UseVisualStyleBackColor = true;
-            this.transferFundsSavingsRadio.CheckedChanged += new System.EventHandler(this.transferFundsSavingsRadio_CheckedChanged);
-            // 
-            // transferFundsCheckingRadio
-            // 
-            this.transferFundsCheckingRadio.AutoSize = true;
-            this.transferFundsCheckingRadio.Checked = true;
-            this.transferFundsCheckingRadio.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.transferFundsCheckingRadio.Location = new System.Drawing.Point(91, 43);
-            this.transferFundsCheckingRadio.Margin = new System.Windows.Forms.Padding(4);
-            this.transferFundsCheckingRadio.Name = "transferFundsCheckingRadio";
-            this.transferFundsCheckingRadio.Size = new System.Drawing.Size(100, 23);
-            this.transferFundsCheckingRadio.TabIndex = 4;
-            this.transferFundsCheckingRadio.TabStop = true;
-            this.transferFundsCheckingRadio.Text = "Checking";
-            this.transferFundsCheckingRadio.UseVisualStyleBackColor = true;
-            this.transferFundsCheckingRadio.CheckedChanged += new System.EventHandler(this.transferFundsCheckingRadio_CheckedChanged);
             // 
             // ExitTheATM
             // 
@@ -556,29 +585,30 @@
             this.label5.TabIndex = 30;
             this.label5.Text = "Line of Credit:";
             // 
-            // textBox1
+            // LineofCredittxt
             // 
-            this.textBox1.Location = new System.Drawing.Point(809, 229);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(216, 22);
-            this.textBox1.TabIndex = 31;
+            this.LineofCredittxt.Location = new System.Drawing.Point(809, 229);
+            this.LineofCredittxt.Margin = new System.Windows.Forms.Padding(4);
+            this.LineofCredittxt.Name = "LineofCredittxt";
+            this.LineofCredittxt.Size = new System.Drawing.Size(216, 22);
+            this.LineofCredittxt.TabIndex = 31;
             // 
-            // textBox2
+            // Mortgagetxt
             // 
-            this.textBox2.Location = new System.Drawing.Point(809, 185);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(216, 22);
-            this.textBox2.TabIndex = 32;
+            this.Mortgagetxt.Location = new System.Drawing.Point(809, 185);
+            this.Mortgagetxt.Margin = new System.Windows.Forms.Padding(4);
+            this.Mortgagetxt.Name = "Mortgagetxt";
+            this.Mortgagetxt.Size = new System.Drawing.Size(216, 22);
+            this.Mortgagetxt.TabIndex = 32;
+            this.Mortgagetxt.TextChanged += new System.EventHandler(this.Mortgagetxt_TextChanged);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Mortgagetxt);
+            this.Controls.Add(this.LineofCredittxt);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.ExitTheATM);
@@ -645,14 +675,16 @@
         private System.Windows.Forms.GroupBox transferFunds;
         private System.Windows.Forms.KeyEventHandler keyDown;
         private System.Windows.Forms.Label fromlbl;
-        private System.Windows.Forms.RadioButton transferFundsSavingsRadio;
-        private System.Windows.Forms.RadioButton transferFundsCheckingRadio;
-        private System.Windows.Forms.Label transferlbl;
         private System.Windows.Forms.Label tolbl;
         private System.Windows.Forms.Button ExitTheATM;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox LineofCredittxt;
+        private System.Windows.Forms.TextBox Mortgagetxt;
+        private System.Windows.Forms.Label transferFundCheckingLable;
+        private System.Windows.Forms.RadioButton transferFundsLOCRadio;
+        private System.Windows.Forms.RadioButton transferFundsMortgageRadio;
+        private System.Windows.Forms.RadioButton transferFundsSavingsRadio;
+        private System.Windows.Forms.RadioButton MortgageRadio;
     }
 }

@@ -118,5 +118,25 @@ namespace CDICollegeATMMachine {
             var supervisor = new Form1();
             supervisor.Show();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            foreach (LineOfCredit each in atmManager.getLineOfCreditAccounts().getAllLineOfCreditAccounts())
+            {
+                each.setAccountBalance(each.getAccountBalance() * 1.05);
+            }
+
+            atmManager.WriteAccounts();
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            /*foreach (SavingAccounts each in atmManager.getLineOfCreditAccounts().getAllLineOfCreditAccounts())
+            {
+                each.setAccountBalance(each.getAccountBalance() * 1.01);
+            }
+
+            atmManager.WriteAccounts();*/
+        }
     }
 }

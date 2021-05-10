@@ -9,6 +9,9 @@ namespace CDICollegeATMMachine {
 
         private string name;
         private string pinNumber;
+        private String email;
+        private String phoneNumber;
+
         public void setName(string name) {
             this.name = name;
         }
@@ -21,6 +24,25 @@ namespace CDICollegeATMMachine {
         }
         public string getPinNumber() {
             return this.pinNumber;
+        }
+        public void setEmail(String accountEmail)
+        {
+            this.email = accountEmail;
+        }
+
+        public String getEmail()
+        {
+            return this.email;
+        }
+
+        public void setPhoneNumber(String accountPhoneNumber)
+        {
+            this.phoneNumber = accountPhoneNumber;
+        }
+
+        public String getPhoneNumber()
+        {
+            return this.phoneNumber;
         }
     }
 }

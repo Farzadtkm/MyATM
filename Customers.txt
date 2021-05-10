@@ -1,5 +1,6 @@
-Korben Dallas,D001
-Jerry Cann,C001
-Eric Clapton,C002
-Carlos Santana,S001
-Elton John,J001
+Korben Dallas,D001,1235456457,dallas@gmail.com
+Jerry Cann,C001,6543289545,jerry@gmail.com
+Eric Clapton,C002,6542985673,eric@gmail.com
+Carlos Santana,S001,3259874561,carlos@gmail.com
+Elton John,J001,65897451236,elton@gmail.com
+ali,5555,12345657855,ali@gmail.com

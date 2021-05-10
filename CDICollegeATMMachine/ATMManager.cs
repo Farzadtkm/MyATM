@@ -12,6 +12,8 @@ namespace CDICollegeATMMachine {
         private Customers customers = new Customers();
         private SavingAccounts savingAccounts = new SavingAccounts();
         private CheckingAccounts checkingAccounts = new CheckingAccounts();
+        private MortgageAccount mortgageAccounts = new MortgageAccount();
+        private LineOfCreditAccounts lineOfCreditAccounts = new LineOfCreditAccounts();
 
         private Boolean outofService = false;
 
@@ -21,7 +23,7 @@ namespace CDICollegeATMMachine {
         
         public Boolean validateUser(string name, string pin) {
             
-            for(int i = 0; i < 5; i++) {
+            for(int i = 0; i < customers.getAllCustomers().Count; i++) {
                 if (customers.getCustomer(i).getName().Equals(name) && customers.getCustomer(i).getPinNumber().Equals(pin.Trim())) {
                     return true;
                 }
@@ -73,6 +75,22 @@ namespace CDICollegeATMMachine {
 
             return false;
         }
+
+        public Boolean depositMortgage(string pin, double amount)
+        {
+            foreach (Mortgage each in mortgageAccounts.getAllMortgageAccounts())
+            {
+                if (each.getPinNumber() == pin)
+                {
+                    each.setAccountBalance(amount + each.getAccountBalance());
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public Boolean payBill(string pin, double amount) {
             foreach (Checking each in checkingAccounts.getAllCheckingAccounts()) {
                 if (each.getPinNumber() == pin) {
@@ -85,7 +103,7 @@ namespace CDICollegeATMMachine {
             return false;
         }
         public void transferFunds(string pin, double amount, string accountType) {
-            if(accountType == "C") {
+            if(accountType == "S") {
                 foreach (Checking each in checkingAccounts.getAllCheckingAccounts()) {
                     if (each.getPinNumber() == pin) {
 
@@ -101,22 +119,52 @@ namespace CDICollegeATMMachine {
                 }
             }
 
-            if(accountType == "S") {
-                foreach (Savings each in savingAccounts.getAllSavingAccounts()) {
-                    if (each.getPinNumber() == pin) {
+        }
+        public void transferFundsAndReduce(string pin, double amount, string accountType) {
+
+            if (accountType == "M")
+            {
+                foreach (Checking each in checkingAccounts.getAllCheckingAccounts())
+                {
+                    if (each.getPinNumber() == pin)
+                    {
 
                         each.setAccountBalance(each.getAccountBalance() - amount);
                     }
                 }
 
-                foreach (Checking each in checkingAccounts.getAllCheckingAccounts()) {
-                    if (each.getPinNumber() == pin) {
+                foreach (Mortgage each in mortgageAccounts.getAllMortgageAccounts())
+                {
+                    if (each.getPinNumber() == pin)
+                    {
 
-                        each.setAccountBalance(each.getAccountBalance() + amount);
+                        each.setAccountBalance(each.getAccountBalance() - amount);
+                    }
+                }
+            }
+
+            if (accountType == "L")
+            {
+                foreach (Checking each in checkingAccounts.getAllCheckingAccounts())
+                {
+                    if (each.getPinNumber() == pin)
+                    {
+
+                        each.setAccountBalance(each.getAccountBalance() - amount);
+                    }
+                }
+
+                foreach (LineOfCredit each in lineOfCreditAccounts.getAllLineOfCreditAccounts())
+                {
+                    if (each.getPinNumber() == pin)
+                    {
+
+                        each.setAccountBalance(each.getAccountBalance() - amount);
                     }
                 }
             }
         }
+
         public void displayAccountBalance() {
             Console.WriteLine("Your current balance is: " + currentBalance);
         }
@@ -126,11 +174,14 @@ namespace CDICollegeATMMachine {
             try {
                 String[] lines = File.ReadAllLines("C:\\Users\\Farzad Torkaman\\Desktop\\MyATM\\Customers.txt");
 
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < lines.Length; i++) {
                     Customer AddCustomer = new Customer();
                     String[] each = lines[i].Split(',');
                     AddCustomer.setName(each[0]);
                     AddCustomer.setPinNumber(each[1]);
+                    AddCustomer.setPhoneNumber(each[2]);
+                    AddCustomer.setEmail(each[3]);
+
                     customers.addCustomer(AddCustomer);
                 }
 
@@ -147,7 +198,7 @@ namespace CDICollegeATMMachine {
             try {
                 String[] lines = File.ReadAllLines("C:\\Users\\Farzad Torkaman\\Desktop\\MyATM\\AccountsCopy.txt");
 
-                for (int i = 0; i < 11; i++) {
+                for (int i = 0; i < 21; i++) {
                     String[] each = lines[i].Split(',');
 
                     if (each[0] == "B") {
@@ -174,7 +225,26 @@ namespace CDICollegeATMMachine {
                         aSavingAccount.setAccountBalance(Convert.ToDouble(each[3]));
 
                         savingAccounts.addSavings(aSavingAccount);
+
+                    } else if(each[0] == "M") {
+                        Mortgage aMortgageAccount = new Mortgage();
+
+                        aMortgageAccount.setPinNumber(each[1]);
+                        aMortgageAccount.setAccountNumber(each[2]);
+                        aMortgageAccount.setAccountBalance(Convert.ToDouble(each[3]));
+
+                        mortgageAccounts.addMortgage(aMortgageAccount);
+
+                    } else if (each[0] == "L") {
+                        LineOfCredit aLineOfCreditAccount = new LineOfCredit();
+
+                        aLineOfCreditAccount.setPinNumber(each[1]);
+                        aLineOfCreditAccount.setAccountNumber(each[2]);
+                        aLineOfCreditAccount.setAccountBalance(Convert.ToDouble(each[3]));
+
+                        lineOfCreditAccounts.addLineOfCredit(aLineOfCreditAccount);
                     }
+
                 }
             } catch (IOException e) {
                 Console.Write("There was an error when loading the file");
@@ -186,7 +256,7 @@ namespace CDICollegeATMMachine {
 
             
 
-            using (StreamWriter file = new StreamWriter("C:\\Users\\Farzad\\source\\repos\\CDICollegeATMMachine\\AccountsCopy.txt")) {
+            using (StreamWriter file = new StreamWriter("C:\\Users\\Farzad Torkaman\\Desktop\\MyATM\\AccountsCopy.txt")) {
                 file.Flush();
 
                 file.WriteLine("B," + bank.getPinNumber() + "," + bank.getAccountNumber() + "," + bank.getAccountBalance());
@@ -198,22 +268,46 @@ namespace CDICollegeATMMachine {
                 foreach (Savings each in savingAccounts.getAllSavingAccounts()) {
                     file.WriteLine("S," + each.getPinNumber() + "," + each.getAccountNumber() + "," + each.getAccountBalance());
                 }
+
+                foreach (Mortgage each in mortgageAccounts.getAllMortgageAccounts())
+                {
+                    file.WriteLine("M," + each.getPinNumber() + "," + each.getAccountNumber() + "," + each.getAccountBalance());
+                }
+
+                foreach (LineOfCredit each in lineOfCreditAccounts.getAllLineOfCreditAccounts())
+                {
+                    file.WriteLine("L," + each.getPinNumber() + "," + each.getAccountNumber() + "," + each.getAccountBalance());
+                }
             }
 
             return true;
         }
+
         public CheckingAccounts getCheckingAccount() {
             return checkingAccounts;
         }
+
         public SavingAccounts getSavingAccounts() {
             return savingAccounts;
         }
+
+        public MortgageAccount getMortgageAccounts()
+        {
+            return mortgageAccounts;
+        }
+        public LineOfCreditAccounts getLineOfCreditAccounts()
+        {
+            return lineOfCreditAccounts;
+        }
+
         public Bank getBank() {
             return this.bank;
         }
+
         public Boolean getOutOfService() {
             return this.outofService;
         }
+
         public void setOutOfService(Boolean outofService) {
             this.outofService = outofService;
         }

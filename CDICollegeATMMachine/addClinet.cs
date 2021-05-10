@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,7 +34,14 @@ namespace CDICollegeATMMachine
             int i = cmd.ExecuteNonQuery();
             con.Close();
 
-            if(i != 0)
+            string path = "C:\\Users\\Farzad Torkaman\\Desktop\\MyATM\\Customers.txt";
+
+            using (StreamWriter sw = File.AppendText(path))
+            {
+                sw.WriteLine(Nametxt.Text + "," + pinTxt.Text + "," + phoneNumberTxt.Text + "," + emailTxt.Text);
+            }
+
+            if (i != 0)
             {
                 MessageBox.Show(i + " Data Saved");
             }

@@ -18,6 +18,10 @@ namespace CDICollegeATMMachine {
         private int counter;
         private Checking userChecking;
         private Savings userSaving;
+        private Mortgage userMortgage;
+        private LineOfCredit userLineOfCredit;
+
+
 
         public MainMenu(string user, string pass, ATMManager atmManager) {
             InitializeComponent();
@@ -38,9 +42,22 @@ namespace CDICollegeATMMachine {
                     this.userSaving = each;
             }
 
+            foreach (Mortgage each in atmManager.getMortgageAccounts().getAllMortgageAccounts())
+            {
+                if (pinNumber == each.getPinNumber())
+                    this.userMortgage = each;
+            }
+
+            foreach (LineOfCredit each in atmManager.getLineOfCreditAccounts().getAllLineOfCreditAccounts())
+            {
+                if (pinNumber == each.getPinNumber())
+                    this.userLineOfCredit = each;
+            }
+
             Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
             Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
-
+            Mortgagetxt.Text = Convert.ToString(userMortgage.getAccountBalance());
+            LineofCredittxt.Text = Convert.ToString(userLineOfCredit.getAccountBalance());
         }
 
         public void readAccoounts() {
@@ -110,6 +127,9 @@ namespace CDICollegeATMMachine {
                 atmManager.depositSavings(pinNumber, Convert.ToDouble(KeyPadTxt.Text));
             }
 
+            if (MortgageRadio.Checked == true && DepositRadio.Checked == true) {
+                atmManager.depositMortgage(pinNumber, Convert.ToDouble(KeyPadTxt.Text));
+            }
 
             //    if (CheckingRadio.Checked == true && WithdrawalRadio.Checked == true) { 
             //    if(Convert.ToDouble(KeyPadTxt.Text) > 1000)
@@ -148,22 +168,7 @@ namespace CDICollegeATMMachine {
                     atmManager.payBill(pinNumber, Convert.ToDouble(KeyPadTxt.Text));
             }
 
-            if (transferFundsCheckingRadio.Checked == true && TransferFundsRadio.Checked == true) {
-                
-
-                if (Convert.ToDouble(KeyPadTxt.Text) > 100000)
-                    MessageBox.Show("The amount is more than a hundred thousand dollars", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else if (Convert.ToDouble(KeyPadTxt.Text) < 0)
-                    MessageBox.Show("The amount cannot be less than zero", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else if (userChecking.getAccountBalance() < Convert.ToDouble(KeyPadTxt.Text))
-                    MessageBox.Show("The amount cannot be more than the amount in the account.", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else
-                    atmManager.transferFunds(pinNumber, Convert.ToDouble(KeyPadTxt.Text), "C");
-            }
-
             if (transferFundsSavingsRadio.Checked == true && TransferFundsRadio.Checked == true) {
-                
-
                 if (Convert.ToDouble(KeyPadTxt.Text) > 100000)
                     MessageBox.Show("The amount is more than a hundred thousand dollars", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else if (Convert.ToDouble(KeyPadTxt.Text) < 0)
@@ -173,6 +178,28 @@ namespace CDICollegeATMMachine {
                 else
                     atmManager.transferFunds(pinNumber, Convert.ToDouble(KeyPadTxt.Text), "S");
 
+            }
+
+            if (transferFundsMortgageRadio.Checked == true && TransferFundsRadio.Checked == true) {
+                if (Convert.ToDouble(KeyPadTxt.Text) > 100000)
+                    MessageBox.Show("The amount is more than a hundred thousand dollars", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (Convert.ToDouble(KeyPadTxt.Text) < 0)
+                    MessageBox.Show("The amount cannot be less than zero", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (userChecking.getAccountBalance() < Convert.ToDouble(KeyPadTxt.Text))
+                    MessageBox.Show("The amount cannot be more than the amount in the account.", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    atmManager.transferFundsAndReduce(pinNumber, Convert.ToDouble(KeyPadTxt.Text), "M");
+            }
+
+            if (transferFundsLOCRadio.Checked == true && TransferFundsRadio.Checked == true) {
+                if (Convert.ToDouble(KeyPadTxt.Text) > 100000)
+                    MessageBox.Show("The amount is more than a hundred thousand dollars", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (Convert.ToDouble(KeyPadTxt.Text) < 0)
+                    MessageBox.Show("The amount cannot be less than zero", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else if (userChecking.getAccountBalance() < Convert.ToDouble(KeyPadTxt.Text))
+                    MessageBox.Show("The amount cannot be more than the amount in the account.", "Invalid Amount", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    atmManager.transferFundsAndReduce(pinNumber, Convert.ToDouble(KeyPadTxt.Text), "L");
             }
 
             if (SavingRadio.Checked == true && PayBillRadio.Checked == true) {
@@ -188,6 +215,8 @@ namespace CDICollegeATMMachine {
             if (CheckingRadio.Checked == true) {
                 Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
                 Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
+                Mortgagetxt.Text = Convert.ToString(userMortgage.getAccountBalance());
+                LineofCredittxt.Text = Convert.ToString(userLineOfCredit.getAccountBalance());
 
                 //foreach(Checking each in atmManager.getCheckingAccount().getAllCheckingAccounts()) {
                 //    if (pinNumber == each.getPinNumber())
@@ -207,6 +236,8 @@ namespace CDICollegeATMMachine {
             if (SavingRadio.Checked == true) {
                 Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
                 Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
+                Mortgagetxt.Text = Convert.ToString(userMortgage.getAccountBalance());
+                LineofCredittxt.Text = Convert.ToString(userLineOfCredit.getAccountBalance());
 
                 //foreach (Savings each in atmManager.getSavingAccounts().getAllSavingAccounts()) {
                 //    if (pinNumber == each.getPinNumber())
@@ -243,20 +274,20 @@ namespace CDICollegeATMMachine {
         }
 
         private void transferFundsSavingsRadio_CheckedChanged(object sender, EventArgs e) {
-            if (transferFundsSavingsRadio.Checked == true) {
+/*            if (transferFundsSavingsRadio.Checked == true) {
                 Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
                 Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
                 transferlbl.Text = "Checking";
-            }
+            }*/
                 
         }
 
         private void transferFundsCheckingRadio_CheckedChanged(object sender, EventArgs e) {
-            if (transferFundsCheckingRadio.Checked == true) {
+/*            if (transferFundsCheckingRadio.Checked == true) {
                 Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
                 Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
                 transferlbl.Text = "Savings";
-            }               
+            }   */            
         }
 
         private void transferFunds_Enter(object sender, EventArgs e) {
@@ -271,7 +302,23 @@ namespace CDICollegeATMMachine {
         }
 
         private void ExitTheATM_Click(object sender, EventArgs e) {
-            this.Close();
+            Application.Exit();
+        }
+
+        private void Mortgagetxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MortgageRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (MortgageRadio.Checked == true)
+            {
+                Checkingtxt.Text = Convert.ToString(userChecking.getAccountBalance());
+                Savingtxt.Text = Convert.ToString(userSaving.getAccountBalance());
+                Mortgagetxt.Text = Convert.ToString(userMortgage.getAccountBalance());
+                LineofCredittxt.Text = Convert.ToString(userLineOfCredit.getAccountBalance());
+            }
         }
 
         //private void MainMenu_Load(object sender, System.EventArgs e) {

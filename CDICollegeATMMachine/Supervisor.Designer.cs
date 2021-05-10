@@ -45,12 +45,16 @@
             this.RefillAtmBtn = new System.Windows.Forms.Button();
             this.PayIntrestBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.ClientDataGroupBox.SuspendLayout();
             this.KeyPadGB.SuspendLayout();
             this.SuspendLayout();
             // 
             // ClientDataGroupBox
             // 
+            this.ClientDataGroupBox.Controls.Add(this.button5);
+            this.ClientDataGroupBox.Controls.Add(this.button3);
             this.ClientDataGroupBox.Controls.Add(this.button2);
             this.ClientDataGroupBox.Controls.Add(this.button1);
             this.ClientDataGroupBox.Controls.Add(this.BankBalanceLbl);
@@ -83,7 +87,7 @@
             // BankBalanceLbl
             // 
             this.BankBalanceLbl.AutoSize = true;
-            this.BankBalanceLbl.Location = new System.Drawing.Point(225, 322);
+            this.BankBalanceLbl.Location = new System.Drawing.Point(218, 362);
             this.BankBalanceLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BankBalanceLbl.Name = "BankBalanceLbl";
             this.BankBalanceLbl.Size = new System.Drawing.Size(0, 17);
@@ -94,7 +98,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 316);
+            this.label1.Location = new System.Drawing.Point(8, 362);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(186, 23);
@@ -314,7 +318,7 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(20, 234);
+            this.button2.Location = new System.Drawing.Point(20, 225);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(248, 28);
@@ -322,6 +326,30 @@
             this.button2.Text = "Add Client";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // button3
+            // 
+            this.button3.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(20, 261);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(248, 28);
+            this.button3.TabIndex = 9;
+            this.button3.Text = "5% Line Of Credit Interest";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button5
+            // 
+            this.button5.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.Location = new System.Drawing.Point(20, 297);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(248, 28);
+            this.button5.TabIndex = 10;
+            this.button5.Text = "1% Savaings Interest";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
             // 
             // Supervisor
             // 
@@ -363,5 +391,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button5;
     }
 }
